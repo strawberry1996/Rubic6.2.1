@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.edu.cqupt.rubic_business.dao.AlgorithmDao">
+
+	<sql id="algorithmItems">
+		algorithm_id, algorithm_name, platform, description, package_name, parameter_count, 
+		associated_tasks, data_requirements, in_pattern, out_pattern, scope, submit_datetime, 
+		ispublic, data_test, file_path
+	</sql>
+	
+	<sql id="algorithmValues">
+		#{algorithm_id}, #{algorithm_name}, #{platform}, #{description}, #{package_name}, 
+		#{parameter_count}, #{associated_tasks}, #{data_requirements}, #{in_pattern}, 
+		#{out_pattern}, #{scope}, #{submit_datetime}, #{ispublic}, #{data_test}, #{file_path}
+	</sql>
+
+	<!--根据aid查找算法  -->
+	<select id="findAlgorithmById" resultType="cn.edu.cqupt.rubic_business.Model.po.AlgorithmPo" parameterType="int">
+	  select * from algorithm where algorithm_id=#{aid}
+	</select>
+
+</mapper>

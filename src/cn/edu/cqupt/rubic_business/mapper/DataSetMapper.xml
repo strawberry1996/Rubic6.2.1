@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.edu.cqupt.rubic_business.dao.DataSetDao">
+
+    <sql id="datasetItems">
+        dataset_id,dataset_name,dataset_type, associated_tasks,attribute_count,description,number_examples,
+        submit_datetime,area,download_count,file_path,ispublic,platform
+    </sql>
+    
+    
+    <sql id="datasetValues">
+    	#{dataset_id},#{dataset_name},#{dataset_type},#{associated_tasks},
+    	#{attribute_count}, #{description},#{number_examples},#{submit_datetime},
+	    #{area},#{download_count},#{file_path},#{ispublic},#{data_platform}
+    </sql>
+	
+	<!--根据dataset_id查找数据  -->
+	<select id="findDataSetById" resultType="cn.edu.cqupt.rubic_business.Model.po.DataSetPo" parameterType="int">
+		select * from dataset where dataset_id=#{dataset_id}
+	</select>
+	
+</mapper>

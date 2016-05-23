@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.edu.cqupt.rubic_business.dao.AttributeDao">
+
+	<sql id="attributeItems">
+		attribute_id,attribute_name,attribute_type,attribute_range,attribute_missing,
+		attribute_label,attribute_character,attribute_sequence,attribute_database_type
+	</sql>
+
+	<select id="findAttributesByDid" parameterType="int"
+		resultType="cn.edu.cqupt.rubic_business.Model.po.AttributePo">
+		SELECT *
+		FROM dataset t1 LEFT JOIN
+		dataset_attribute_relationship t2 ON(t1.dataset_id=t2.dataset_id)
+		LEFT JOIN attribute t3 ON (t2.attribute_id=t3.attribute_id)
+		WHERE
+		t1.dataset_id=#{dataset_id}
+	</select>
+
+	<!-- 添加attribute -->
+	<insert id="addAttribute" parameterType="cn.edu.cqupt.rubic_business.Model.po.AttributePo">
+		<selectKey resultType="int" keyProperty="attribute_id"
+			order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into attribute(attribute_name, attribute_type, attribute_range,
+		attribute_missing,
+		attribute_label,attribute_character,attribute_sequence)
+		values
+		(#{attribute_name}, #{attribute_type}, #{attribute_range},
+		#{attribute_missing},
+		#{attribute_label},#{attribute_character},#{attribute_sequence})
+	</insert>
+
+</mapper>

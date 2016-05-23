@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.edu.cqupt.rubic_business.dao.ProcessRecordDao">
+	<insert id="addProcessRecord" parameterType="cn.edu.cqupt.rubic_business.Model.po.ProcessRecordPo">
+		 <selectKey resultType="int" keyProperty="process_id" order="AFTER">
+	        select LAST_INSERT_ID()
+		 </selectKey>
+		insert into process_record (process_start,process_end,json_detail,result_path,
+						run_state,run_count,
+						user_id,platform,resultdataset_id,reason)
+						values(#{process_start},#{process_end},#{json_detail},
+							   #{result_path},#{run_state},
+							   #{run_count},#{user_id},#{platform},#{resultdataset_id},#{reason})
+	</insert>
+	
+	<update id="updateProcessRecordByID" parameterType="cn.edu.cqupt.rubic_business.Model.po.ProcessRecordPo">
+		Update process_record 
+			Set 
+			user_id=#{user_id},
+			process_end=#{process_end},
+			result_path = #{result_path},
+			run_state=#{run_state},
+			resultdataset_id = #{resultdataset_id},
+			reason = #{reason} Where process_id = #{process_id}
+	</update>
+	
+</mapper>
